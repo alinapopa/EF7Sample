@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Friends.Models.User>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<p>
+    <a asp-controller="Friends" asp-action="Create">New post</a>
+</p>
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <h2>@item.Name</h2>
+                <p>  @Html.ActionLink("Delete User", "DeleteUser", new { userId = item.UserId }) </p>
+            </td>
+            <td>
+                <h3>@item.Name's Wall</h3>
+                <table class="table">
+                    <tr>
+                        <th>Post</th>
+                        <th>From</th>
+                        <th>Date</th>
+                    </tr>
+                    @foreach (var post in item.Wall.Posts)
+                {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(postContent => post.Content)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(author => post.User.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(date => post.DatePosted)
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+
+                <h3>@item.Name's Posts</h3>
+                <table class="table">
+                    <tr>
+                        <th>Post</th>
+                        <th>To</th>
+                        <th>Date</th>
+                    </tr>
+                    @foreach (var post in item.Posts)
+                {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(postContent => post.Content)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(author => post.Wall.User.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(date => post.DatePosted)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+            <td>
+                <h3>Tags</h3>
+                @for(int i=0; i<item.UserTags.Count(); i++)
+                {
+                   
+                    @item.UserTags[i]?.Tag?.Name 
+                    if (i != item.UserTags.Count() - 1)
+                    {
+                        @Html.Raw(", ")
+                    }
+
+                }
+            </td>
+    </tr>
+    }
+</table>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Books.Models.Book>
+
+@{
+    ViewBag.Title = "Books";
+}
+
+<h2>Books</h2>
+
+<p>
+    <a asp-controller="Books" asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Author</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.Name)
+            </td>
+        </tr>
+    }
+</table>
+
+<h2>Categories</h2>
+<table class="table">
+
+    @foreach (var item in ViewBag.categories)
+    {
+        <tr>
+            <td>
+               @item.Name
+               
+
+            </td>
+            <td>
+                @Html.ActionLink("Delete category", "DeleteCategory", new { categoryKey = item.Key })
+            </td>
+        </tr>
+    }
+</table>
+
+
+<h2>Authors</h2>
+<table class="table">
+
+    @foreach (var item in ViewBag.authors)
+    {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @Html.ActionLink("Delete author", "DeleteAuthor", new { authorKey = item.Key })
+            </td>
+        </tr>
+    }
+</table>

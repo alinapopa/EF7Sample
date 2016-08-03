@@ -1,0 +1,35 @@
+﻿@model Friends.Models.Post
+
+@{
+    ViewBag.Title = "New Post";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-controller="Friends" asp-action="Create" method="post" class="form-horizontal" role="form">
+    <div class="form-horizontal">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">From </label>
+            <div class="col-md-10">
+                <input asp-for="User.Name" class="form-control" />
+                <span asp-validation-for="User.Name" class="text-danger"></span>
+            </div>
+            <label class="col-md-2 control-label">To </label>
+            <div class="col-md-10">
+                <input asp-for="Wall.User.Name" class="form-control" />
+                <span asp-validation-for="Wall.User.Name" class="text-danger"></span>
+            </div>
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-10">
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
